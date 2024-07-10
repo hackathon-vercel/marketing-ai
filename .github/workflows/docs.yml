@@ -20,11 +20,11 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: 
+        run: |
           cd documentation
           yarn install
       - name: Build website
-        run: 
+        run: |
           cd documentation
           yarn build
 
