@@ -20,9 +20,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: yarn install
+        run: 
+          cd documentation
+          yarn install
       - name: Build website
-        run: yarn build
+        run: 
+          cd documentation
+          yarn build
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
