@@ -27,6 +27,9 @@ jobs:
         run: |
           cd documentation
           yarn build
+          mv build ./../
+          cd ..
+          ls -al
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
