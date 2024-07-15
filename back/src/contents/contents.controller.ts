@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ContentDto, CreateContentDto } from './dtos/contents.dto';
-import { htmlContent } from './docs';
+// import { htmlContent } from './docs';
 
 const name = 'contents'
 
@@ -64,7 +64,7 @@ export class ContentsController {
 
     @Post()
     // Swagger
-    @ApiOperation({summary: 'Crear contenidos de marketing', description: htmlContent})
+    // @ApiOperation({summary: 'Crear contenidos de marketing', description: htmlContent})
     @ApiBody({ type: CreateContentDto })
     @ApiCreatedResponse({description: 'Contenido de marketing creado y entregado'})
     @ApiBadRequestResponse({description: 'Hay una parametro que se escribio o se paso mal'})
