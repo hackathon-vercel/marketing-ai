@@ -43,13 +43,6 @@ export class ContentsController {
         return 'Allo tone'
     }
 
-    // Endpoint para crear un buyer persona
-
-    @Post('/buyer-person')
-    createBuyerPerson() {
-        return 'Create Buyer Person'
-    }
-
     // Endpoint para llamar a la api del SDK y obtener una lista de siete palabras de cola larga
 
     @Get('/list-keywords')
