@@ -12,13 +12,13 @@ export class ContentsController {
   @Get('/list-data-allowed-of-buyer-person')
   @ApiOkResponse({ description: 'Retorna una lista de elemenos que puede elegir el usuario' })
   findDataAllowToGetOfBuyerPerson() {
-    return ['Género', 'Edad', 'Ubicación', 'Estado civil', 'Trabajo', 'Intereses', 'Comportamientos', 'Historial web'];
+    return { data: ['Genero', 'Edad', 'Ubicacion', 'Estado Civil', 'Trabajo', 'Intereses', 'Comportamientos', 'Historial web'] };
   }
   // Endpoint para listar los tono de una anuncio
 
   @Get('/list-ad-tone')
   findAdTone() {
-    return ['Formal', 'Informal', 'Humorístico', 'Persuasivo', 'Inspirador', 'Autoritativo', 'Emotivo', 'Urgente', 'Neutro', 'Optimista', 'Provocativo', 'Informativo', 'Casual', 'Respetuoso', 'Innovador', 'Nostálgico', 'Juguetón', 'Sofisticado'];
+    return { data: ['Formal', 'Informal', 'Humorístico', 'Persuasivo', 'Inspirador', 'Autoritativo', 'Emotivo', 'Urgente', 'Neutro', 'Optimista', 'Provocativo', 'Informativo', 'Casual', 'Respetuoso', 'Innovador', 'Nostálgico', 'Juguetón', 'Sofisticado'] };
   }
 
   // Endpoint para llamar a la api del SDK y obtener una lista de siete palabras de cola larga
