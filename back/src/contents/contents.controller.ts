@@ -18,7 +18,7 @@ export class ContentsController {
 
   @Get('/list-ad-tone')
   findAdTone() {
-    return 'Allo tone';
+    return ['Formal', 'Informal', 'Humorístico', 'Persuasivo', 'Inspirador', 'Autoritativo', 'Emotivo', 'Urgente', 'Neutro', 'Optimista', 'Provocativo', 'Informativo', 'Casual', 'Respetuoso', 'Innovador', 'Nostálgico', 'Juguetón', 'Sofisticado'];
   }
 
   // Endpoint para llamar a la api del SDK y obtener una lista de siete palabras de cola larga
