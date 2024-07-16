@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { ContentDto, CreateContentDto } from './dtos/contents.dto';
+import { ContentDto, CreateContentDto, KeywordsDto } from './dtos/contents.dto';
 // import { htmlContent } from './docs';
 
 const name = 'contents'
