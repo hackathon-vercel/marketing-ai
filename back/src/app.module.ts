@@ -5,10 +5,11 @@ import { ContentsController } from './contents/contents.controller';
 import { UsersController } from './users/users.controller';
 import { AuthController } from './auth/auth.controller';
 import { BuyersPeopleController } from './buyers-people/buyers-people.controller';
+import { BuyerService } from './buyers-people/services/buyer.service';
 
 @Module({
   imports: [],
   controllers: [AppController, ContentsController, UsersController, AuthController, BuyersPeopleController],
-  providers: [AppService],
+  providers: [AppService, BuyerService],
 })
 export class AppModule {}
