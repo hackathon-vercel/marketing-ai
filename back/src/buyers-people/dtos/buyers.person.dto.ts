@@ -1,5 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { ArrayNotEmpty, ArrayUnique, IsArray, IsIn, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+
+export type DataSearch = "hola" | "adios"
 
 export class BuyerPersonDto {
 
@@ -52,7 +54,9 @@ export class CreateBuyerPersonDto {
     readonly companyDescription: String;
     
     @ApiProperty()
-    @IsNotEmpty()
     @IsArray()
+    @ArrayNotEmpty()
+    @ArrayUnique()
+    @IsIn(['Genero', 'Edad', 'Ubicacion', 'Estado Civil', 'Trabajo', 'Intereses', 'Comportamientos', 'Historial web'], { each: true })
     readonly dataSearch: Array<String>
 }

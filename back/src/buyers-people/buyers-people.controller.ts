@@ -9,11 +9,11 @@ const name  = 'buyers'
 @Controller(name)
 export class BuyersPeopleController {
     constructor(private buyerPersonService: BuyerService) {}
-    // Endpoint para crear un buyer persona
 
+    // Create Buyer Person
     @Post()
     async createBuyerPerson(@Body() payload: CreateBuyerPersonDto) {
-        const buyerPerson = await this.buyerPersonService.aiCreate('')
+        const buyerPerson = await this.buyerPersonService.aiCreate(payload)
         return buyerPerson
     }
 
