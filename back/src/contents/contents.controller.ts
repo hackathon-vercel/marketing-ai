@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { ContentDto, CreateContentDto } from './dtos/contents.dto';
+import { ContentDto, CreateContentDto, KeywordsDto } from './dtos/contents.dto';
 import { htmlContent } from './docs';
 
 const name = 'contents'
@@ -45,8 +45,8 @@ export class ContentsController {
 
     // Endpoint para llamar a la api del SDK y obtener una lista de siete palabras de cola larga
 
-    @Get('/list-keywords')
-    findKeyWord() {
+    @Post('/keywords')
+    findKeyWord(@Body() payload: KeywordsDto) {
         return [
             {
                 'name': 'ABCD',
@@ -54,12 +54,6 @@ export class ContentsController {
             }
         ]
     }
-
-    @Get()
-    createContentWithAI() {
-        return 'Create content'
-    }
-
     // Endpoint para crear el contenido
 
     @Post()
@@ -71,7 +65,7 @@ export class ContentsController {
     @ApiUnauthorizedResponse({description: 'No estas autenticado, tienes que iniciar sesion y pasar el token por el header Authorization'})
     @ApiForbiddenResponse({description: 'Se quien eres pero no tienes permitido usar estos recursos'})
     @ApiConflictResponse({description: 'Hay un proceso en el backend que salio mal y dio conflicto con los datos proporcionado, notificar al desarrollador'})
-    createContents(@Body() payload: CreateContentDto): ContentDto {
+    createContents(@Body() payload: CreateContentDto) {
         return {...payload, 'id': '123'}
     }
 }
