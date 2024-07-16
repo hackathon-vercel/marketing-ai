@@ -1,10 +1,25 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // Configuration
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true, // Return error if passed params no valid on dtos
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
+
+
+
+  // Swagger
   const config = new DocumentBuilder()
     .setTitle('Contents API')
     .setDescription('This API Market content')
