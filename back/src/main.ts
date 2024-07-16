@@ -17,14 +17,8 @@ async function bootstrap() {
     }),
   );
 
-
-
   // Swagger
-  const config = new DocumentBuilder()
-    .setTitle('Contents API')
-    .setDescription('This API Market content')
-    .setVersion('0.0.1')
-    .build();
+  const config = new DocumentBuilder().setTitle('Contents API').setDescription('This API Market content').setVersion('0.0.1').build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 

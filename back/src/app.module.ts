@@ -9,9 +9,11 @@ import { BuyersPeopleController } from './buyers-people/buyers-people.controller
 import { BuyerService } from './buyers-people/services/buyer.service';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    envFilePath: '.env'
-  })],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+    }),
+  ],
   controllers: [AppController, ContentsController, UsersController, AuthController, BuyersPeopleController],
   providers: [AppService, BuyerService],
 })

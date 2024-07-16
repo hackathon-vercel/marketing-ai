@@ -3,18 +3,17 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateBuyerPersonDto } from './dtos/buyers.person.dto';
 import { BuyerService } from './services/buyer.service';
 
-const name  = 'buyers'
+const name = 'buyers';
 
 @ApiTags(name)
 @Controller(name)
 export class BuyersPeopleController {
-    constructor(private buyerPersonService: BuyerService) {}
+  constructor(private buyerPersonService: BuyerService) {}
 
-    // Create Buyer Person
-    @Post()
-    async createBuyerPerson(@Body() payload: CreateBuyerPersonDto) {
-        const buyerPerson = await this.buyerPersonService.aiCreate(payload)
-        return buyerPerson
-    }
-
+  // Create Buyer Person
+  @Post()
+  async createBuyerPerson(@Body() payload: CreateBuyerPersonDto) {
+    const buyerPerson = await this.buyerPersonService.aiCreate(payload);
+    return buyerPerson;
+  }
 }
