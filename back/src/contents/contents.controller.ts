@@ -24,18 +24,6 @@ export class ContentsController {
             'Historial web'
         ]
     }
-
-    // Endpoint para listar los objectivos de un anuncio
-
-    @Get('/list-ad-objectives')
-    findAdObjectivesToCreateContent() {
-        return [
-            'Informativo',
-            'Documental',
-            'Chistoso'
-        ]
-    }
-
     // Endpoint para listar los tono de una anuncio
 
     @Get('/list-ad-tone')
