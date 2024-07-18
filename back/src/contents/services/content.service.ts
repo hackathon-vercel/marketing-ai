@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { generateText } from 'ai';
 import { google } from '@ai-sdk/google';
 import { KeywordsDto } from '../dtos/contents.dto';
-// import { CreateBuyerPersonDto } from '../dtos/buyers.person.dto';
+import { CreateContentDto } from './../dtos/contents.dto';
 
 @Injectable()
 export class ContentService {
@@ -24,14 +24,15 @@ export class ContentService {
     }
   }
 
-  async content(params: any) {
-    const { companyName, companyDescription, dataSearch } = params;
-    const joinStringSeach = dataSearch.join(', ');
+  async content(params: CreateContentDto) {
+    const { keyword, objective, tone, message } = params;
+
+    const keywords = keyword.join(', ');
 
     try {
       const { text } = await generateText({
         model: google('models/gemini-1.5-flash-latest'),
-        prompt: `Crea un buyer persona para el producto ${companyName}, ${companyDescription}, quiero la siguiente informacion: ${joinStringSeach}, una lista de 10 terminos de busqueda, retorna la informacion en formato json dentro de un key llamado data`,
+        prompt: `Toma las siguientes palabras clave y crea 1 anuncio de texto para sr usando en Google ADS. Las palabras claves son ${keywords}. El anuncio debe tener 1 titulo, con maximo 30 caracateres incluyendo espacios. Y 1 descripcion con un maximo de 90 caracteres incluyendo espacios. El anuncio debe incluir una propuesta de valor, beneficios y caracteristicas del producto anunciado. El objectivo del anuncio es ${objective}, el tono es ${tone} y el mensaje a principal a transmitir es ${message}, retorna la informacion en formato json`,
       });
 
       const replaceText = text.replace(/```json\s*|\s*```/g, '');

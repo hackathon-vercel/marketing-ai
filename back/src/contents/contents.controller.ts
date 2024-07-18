@@ -42,7 +42,8 @@ export class ContentsController {
   @ApiUnauthorizedResponse({ description: 'No estas autenticado, tienes que iniciar sesion y pasar el token por el header Authorization' })
   @ApiForbiddenResponse({ description: 'Se quien eres pero no tienes permitido usar estos recursos' })
   @ApiConflictResponse({ description: 'Hay un proceso en el backend que salio mal y dio conflicto con los datos proporcionado, notificar al desarrollador' })
-  createContents(@Body() payload: CreateContentDto) {
-    return { ...payload, id: '123' };
+  async createContents(@Body() payload: CreateContentDto) {
+    const response = await this.contentService.content(payload);
+    return response;
   }
 }
