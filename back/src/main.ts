@@ -7,6 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // Configuration
+  app.setGlobalPrefix('api/v1');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -16,6 +17,8 @@ async function bootstrap() {
       },
     }),
   );
+
+  app.enableCors();
 
   // Swagger
   const config = new DocumentBuilder().setTitle('Contents API').setDescription('This API Market content').setVersion('0.0.1').build();

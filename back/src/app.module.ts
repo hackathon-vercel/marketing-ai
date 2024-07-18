@@ -7,9 +7,18 @@ import { UsersController } from './users/users.controller';
 import { AuthController } from './auth/auth.controller';
 import { BuyersPeopleController } from './buyers-people/buyers-people.controller';
 import { BuyerService } from './buyers-people/services/buyer.service';
+import { enviroments } from './enviroments';
+import config from './config';
+import { validationEnvSchema } from './schemas';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: enviroments[process.env.NODE_ENV]?.file || '.env',
+      load: [config],
+      isGlobal: true,
+      validationSchema: validationEnvSchema,
+    }),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
