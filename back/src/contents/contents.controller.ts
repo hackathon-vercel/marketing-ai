@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
 import { ContentDto, CreateContentDto, KeywordsDto } from './dtos/contents.dto';
+import { ContentService } from './services/content.service';
 // import { htmlContent } from './docs';
 
 const name = 'contents';
@@ -8,6 +9,8 @@ const name = 'contents';
 @ApiTags(name)
 @Controller(name)
 export class ContentsController {
+  constructor(private contentService: ContentService) {}
+
   // Endpoint para listar datos que se pueden obtener del Buyer persona
   @Get('/list-data-allowed-of-buyer-person')
   @ApiOkResponse({ description: 'Retorna una lista de elemenos que puede elegir el usuario' })
@@ -24,13 +27,9 @@ export class ContentsController {
   // Endpoint para llamar a la api del SDK y obtener una lista de siete palabras de cola larga
 
   @Post('/keywords')
-  findKeyWord(@Body() payload: KeywordsDto) {
-    return [
-      {
-        name: 'ABCD',
-        type: 'Abecedario',
-      },
-    ];
+  async findKeyWord(@Body() payload: KeywordsDto) {
+    const response = await this.contentService.keywords(payload);
+    return response;
   }
   // Endpoint para crear el contenido
 
@@ -43,7 +42,8 @@ export class ContentsController {
   @ApiUnauthorizedResponse({ description: 'No estas autenticado, tienes que iniciar sesion y pasar el token por el header Authorization' })
   @ApiForbiddenResponse({ description: 'Se quien eres pero no tienes permitido usar estos recursos' })
   @ApiConflictResponse({ description: 'Hay un proceso en el backend que salio mal y dio conflicto con los datos proporcionado, notificar al desarrollador' })
-  createContents(@Body() payload: CreateContentDto) {
-    return { ...payload, id: '123' };
+  async createContents(@Body() payload: CreateContentDto) {
+    const response = await this.contentService.content(payload);
+    return response;
   }
 }

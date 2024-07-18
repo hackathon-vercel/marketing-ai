@@ -10,6 +10,7 @@ import { BuyerService } from './buyers-people/services/buyer.service';
 import { enviroments } from './enviroments';
 import config from './config';
 import { validationEnvSchema } from './schemas';
+import { ContentService } from './contents/services/content.service';
 
 @Module({
   imports: [
@@ -24,6 +25,6 @@ import { validationEnvSchema } from './schemas';
     }),
   ],
   controllers: [AppController, ContentsController, UsersController, AuthController, BuyersPeopleController],
-  providers: [AppService, BuyerService],
+  providers: [AppService, BuyerService, ContentService],
 })
 export class AppModule {}
