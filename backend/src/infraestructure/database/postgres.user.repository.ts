@@ -1,5 +1,5 @@
-import { IUser } from 'domain/application/interfaces/IUsers';
-import { UserRepository } from 'domain/application/interfaces/persistence/user.repository';
+import { IUser } from 'src/domain/application/interfaces/IUsers';
+import { UserRepository } from 'src/domain/application/interfaces/persistence/user.repository';
 
 export class PostgresUserRepository implements UserRepository {
   find(id: IUser['id']): IUser {

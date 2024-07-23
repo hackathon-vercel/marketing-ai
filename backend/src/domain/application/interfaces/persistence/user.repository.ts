@@ -1,4 +1,4 @@
-import { IUser } from './../IUsers';
+import { IUser } from '../IUsers';
 
 export interface UserRepository {
   find(id: IUser['id']): IUser;
