@@ -30,7 +30,7 @@ export class CreateContentDto {
   readonly tone: string;
 
   @IsArray()
-  readonly keyword: Array<string>;
+  readonly keywords: Array<string>;
 
   @IsString()
   readonly message: string;

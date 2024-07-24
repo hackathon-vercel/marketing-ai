@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ContentsController } from './contents/contents.controller';
+import { ContentsController } from './external/rest-api/contents/contents.controller';
 import { AuthController } from './auth/auth.controller';
 // import { BuyersPeopleController } from './external/rest-api/buyers/buyers.controller';
 import { BuyerService } from './buyers-people/services/buyer.service';
@@ -12,6 +12,7 @@ import { validationEnvSchema } from './schemas';
 import { ContentService } from './contents/services/content.service';
 import { UsersModule } from './external/rest-api/users/users.module';
 import { BuyersModule } from './external/rest-api/buyers/buyers.module';
+import { ContentsModule } from './external/rest-api/contents/contents.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { BuyersModule } from './external/rest-api/buyers/buyers.module';
     }),
     UsersModule,
     BuyersModule,
+    ContentsModule,
   ],
   controllers: [AppController, ContentsController, AuthController],
   providers: [AppService, BuyerService, ContentService],

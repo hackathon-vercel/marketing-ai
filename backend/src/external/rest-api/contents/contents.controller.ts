@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { ContentDto, CreateContentDto, KeywordsDto } from './dtos/contents.dto';
-import { ContentService } from './services/content.service';
+import { CreateContentDto } from './../../../domain/dto/content.dto';
+import { IPromptCreateContent, IPromptGetKeyWorks } from './../../../domain/application/interfaces/prompts/IPropmts';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { KeywordsDto } from '../../../contents/dtos/contents.dto';
+import { ContentService } from './contents.service';
 // import { htmlContent } from './docs';
 
 const name = 'contents';
@@ -28,22 +30,14 @@ export class ContentsController {
 
   @Post('/keywords')
   async findKeyWord(@Body() payload: KeywordsDto) {
-    const response = await this.contentService.keywords(payload);
+    const response = await this.contentService.createContent(payload);
     return response;
   }
   // Endpoint para crear el contenido
 
   @Post()
-  // Swagger
-  // @ApiOperation({summary: 'Crear contenidos de marketing', description: htmlContent})
-  @ApiBody({ type: CreateContentDto })
-  @ApiCreatedResponse({ description: 'Contenido de marketing creado y entregado' })
-  @ApiBadRequestResponse({ description: 'Hay una parametro que se escribio o se paso mal' })
-  @ApiUnauthorizedResponse({ description: 'No estas autenticado, tienes que iniciar sesion y pasar el token por el header Authorization' })
-  @ApiForbiddenResponse({ description: 'Se quien eres pero no tienes permitido usar estos recursos' })
-  @ApiConflictResponse({ description: 'Hay un proceso en el backend que salio mal y dio conflicto con los datos proporcionado, notificar al desarrollador' })
   async createContents(@Body() payload: CreateContentDto) {
-    const response = await this.contentService.content(payload);
+    const response = await this.contentService.createKeywords(payload);
     return response;
   }
 }
