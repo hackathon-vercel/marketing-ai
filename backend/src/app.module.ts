@@ -3,14 +3,15 @@ import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ContentsController } from './contents/contents.controller';
-import { UsersController } from './users/users.controller';
 import { AuthController } from './auth/auth.controller';
-import { BuyersPeopleController } from './buyers-people/buyers-people.controller';
+// import { BuyersPeopleController } from './external/rest-api/buyers/buyers.controller';
 import { BuyerService } from './buyers-people/services/buyer.service';
 import { enviroments } from './enviroments';
 import config from './config';
 import { validationEnvSchema } from './schemas';
 import { ContentService } from './contents/services/content.service';
+import { UsersModule } from './external/rest-api/users/users.module';
+import { BuyersModule } from './external/rest-api/buyers/buyers.module';
 
 @Module({
   imports: [
@@ -23,8 +24,10 @@ import { ContentService } from './contents/services/content.service';
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
+    UsersModule,
+    BuyersModule,
   ],
-  controllers: [AppController, ContentsController, UsersController, AuthController, BuyersPeopleController],
+  controllers: [AppController, ContentsController, AuthController],
   providers: [AppService, BuyerService, ContentService],
 })
 export class AppModule {}
