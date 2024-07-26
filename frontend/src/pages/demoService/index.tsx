@@ -98,7 +98,7 @@ const Home = () => {
             de segundos. Es hora de empezar a entender a tu <br />
             público objetivo como nunca antes.
           </Typography>
-          <Link href="../buyerPersonaForm">
+          <Link href="../createBuyerPerson">
             <Button
               variant="contained"
               sx={{

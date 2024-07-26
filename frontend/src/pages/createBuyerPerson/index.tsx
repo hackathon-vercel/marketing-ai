@@ -5,6 +5,7 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import Logo from "../../../public/logo.png";
+import Link from "next/link";
 
 const validationSchema = Yup.object({
   nombreEmpresa: Yup.string().required("El nombre de la empresa es requerido"),
@@ -33,7 +34,7 @@ const BuyerPersonaForm = () => {
           textAlign: "center",
           color: "white",
           [theme.breakpoints.down("sm")]: {
-            padding: theme.spacing(2), 
+            padding: theme.spacing(2),
           },
         }}
       >
@@ -44,7 +45,7 @@ const BuyerPersonaForm = () => {
             left: "50%",
             transform: "translateX(-50%)",
             [theme.breakpoints.down("sm")]: {
-              top: theme.spacing(-2), 
+              top: theme.spacing(-2),
             },
           }}
         >
@@ -59,14 +60,13 @@ const BuyerPersonaForm = () => {
             alignItems: "center",
             justifyContent: "center",
             [theme.breakpoints.down("sm")]: {
-              marginTop: theme.spacing(6), 
+              marginTop: theme.spacing(6),
             },
           }}
         >
           <Typography
             variant="h2"
             component="h1"
-            gutterBottom
             sx={{
               fontWeight: 800,
               fontSize: "2rem",
@@ -162,28 +162,30 @@ const BuyerPersonaForm = () => {
                     },
                   }}
                 />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  sx={{
-                    marginTop: theme.spacing(4),
-                    backgroundColor: "#17153B",
-                    borderRadius: "40px",
-                    padding: theme.spacing(1.5, 6),
-                    fontSize: "1rem",
-                    color: "#EEDBF8",
-                    "&:hover": {
-                      backgroundColor: "#0f0e2a",
-                    },
-                    "& .MuiButton-endIcon": {
-                      color: "#C8ACD6",
-                      fontSize: "1.5rem",
-                    },
-                  }}
-                  endIcon={<ArrowRightIcon />}
-                >
-                  Continuar
-                </Button>
+                <Link href="../createBuyerPerson/stepTwo">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      marginTop: theme.spacing(4),
+                      backgroundColor: "#17153B",
+                      borderRadius: "40px",
+                      padding: theme.spacing(1.5, 6),
+                      fontSize: "1rem",
+                      color: "#EEDBF8",
+                      "&:hover": {
+                        backgroundColor: "#0f0e2a",
+                      },
+                      "& .MuiButton-endIcon": {
+                        color: "#C8ACD6",
+                        fontSize: "1.5rem",
+                      },
+                    }}
+                    endIcon={<ArrowRightIcon />}
+                  >
+                    Continuar
+                  </Button>
+                </Link>
               </Form>
             )}
           </Formik>
