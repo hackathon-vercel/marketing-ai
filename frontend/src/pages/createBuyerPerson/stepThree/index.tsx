@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography, List, ListItem, ListItemText, Checkbox, ListItemIcon } from "@mui/material";
+import { Box, Button, Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
@@ -6,10 +6,12 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Logo from "../../../../public/logo.png";
 import Link from "next/link";
 import { useState } from "react";
+import TextFieldsIcon from "@mui/icons-material/TextFields"; // Icono para Palabras Claves
+import SearchIcon from "@mui/icons-material/Search"; // Icono para Tipo de Búsqueda
 
 const CreateBuyerPerson = () => {
   const theme = useTheme();
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState<number[]>([]);
 
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
@@ -24,13 +26,11 @@ const CreateBuyerPerson = () => {
     setChecked(newChecked);
   };
 
-  const items = [
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
+  const rows = [
+    { keyword: "5 alimentos dañinos para gatos", searchType: "Información" },
+    { keyword: "Las 5 mejores marcas de comida para gatos", searchType: "Comercial" },
+    { keyword: "Las 5 mejores marcas de comida para gatos", searchType: "Transaccional" },
+    { keyword: "5 alimentos dañinos para gatos", searchType: "Información" },
   ];
 
   return (
@@ -96,14 +96,14 @@ const CreateBuyerPerson = () => {
               },
             }}
           >
-            Segundo Paso
+            Tercer Paso
           </Typography>
           <Typography
             variant="h5"
             component="h1"
             gutterBottom
             sx={{
-              mt: theme.spacing(1),  
+              mt: theme.spacing(1),
               [theme.breakpoints.down("md")]: {
                 fontSize: "1.5rem",
               },
@@ -112,47 +112,68 @@ const CreateBuyerPerson = () => {
               },
             }}
           >
-            Selecciona el título que más se adapte a lo que buscas
+            Selecciona las palabras clave que se adecuen al <br /> tipo de búsqueda que deseas
           </Typography>
 
-          <List sx={{ width: "100%", maxWidth: "800px", margin: '0 auto' }}>
-            {items.map((item, index) => (
-              <ListItem
-                key={index}
-                onClick={handleToggle(index)}
-                sx={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  margin: theme.spacing(2, 0),
-                }}
-              >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={checked.indexOf(index) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    sx={{
-                      color: "#6A1B9A",
-                      "&.Mui-checked": {
-                        color: "#6A1B9A",
-                      },
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={item}
-                  sx={{
-                    textDecoration: checked.indexOf(index) !== -1 ? "line-through" : "none",
-                    color: "black",
-                  }}
-                />
-              </ListItem>
-            ))}
-          </List>
+          <TableContainer component={Paper} sx={{ maxWidth: "800px", margin: '0 auto', mt: 4, borderRadius: '15px' }}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <TextFieldsIcon sx={{ marginRight: theme.spacing(1) }} />
+                      Palabras Claves
+                    </Box>
+                  </TableCell>
+                  <TableCell align="left">
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                      <SearchIcon sx={{ marginRight: theme.spacing(1) }} />
+                      Tipo de Búsqueda
+                    </Box>
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="left">
+                      <Checkbox
+                        edge="start"
+                        checked={checked.indexOf(index) !== -1}
+                        onChange={handleToggle(index)}
+                        tabIndex={-1}
+                        disableRipple
+                        sx={{
+                          color: "#6A1B9A",
+                          "&.Mui-checked": {
+                            color: "#6A1B9A",
+                          },
+                        }}
+                      />
+                      {row.keyword}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Box
+                        sx={{
+                          display: 'inline-block',
+                          padding: '4px 8px',
+                          borderRadius: '8px',
+                          border: '2px solid #EDE7FB',
+                          backgroundColor: '#EDE7FB',
+                          color: '#6A1B9A',
+                        }}
+                      >
+                        {row.searchType}
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
           <Box sx={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "800px", mt: 4 }}>
-            <Link href="../../createBuyerPerson" passHref>
+            <Link href="../../createBuyerPerson/stepTwo" passHref>
               <Button
                 variant="contained"
                 sx={{
@@ -176,7 +197,7 @@ const CreateBuyerPerson = () => {
               </Button>
             </Link>
 
-            <Link href="../../createBuyerPerson/stepThree" passHref>
+            <Link href="#" passHref>
               <Button
                 variant="contained"
                 sx={{
