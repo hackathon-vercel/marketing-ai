@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import Link from 'next/link';
+import Link from "next/link";
 
 const Home = () => {
   const theme = useTheme();
@@ -15,7 +15,7 @@ const Home = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
+        minHeight: "100vh",
         backgroundImage: "url(/img/bgilaptopgirl.jpeg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -41,23 +41,16 @@ const Home = () => {
           color: "white",
         }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: theme.spacing(-15),
-            left: '50%',
-            transform: "translateX(-50%)",
-          }}
-        >
+        <Box sx={{ mx: "auto", width: "fit-content" }}>
           <Image src={Logo} alt="Logo" width={100} height={100} />
         </Box>
         <Box
           sx={{
             marginTop: theme.spacing(15),
-            [theme.breakpoints.down('md')]: {
+            [theme.breakpoints.down("md")]: {
               marginTop: theme.spacing(10),
             },
-            [theme.breakpoints.down('sm')]: {
+            [theme.breakpoints.down("sm")]: {
               marginTop: theme.spacing(8),
             },
           }}
@@ -68,11 +61,11 @@ const Home = () => {
             gutterBottom
             sx={{
               fontWeight: 800,
-              [theme.breakpoints.down('md')]: {
-                fontSize: '2rem',
+              [theme.breakpoints.down("md")]: {
+                fontSize: "2rem",
               },
-              [theme.breakpoints.down('sm')]: {
-                fontSize: '1.5rem',
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "1.5rem",
               },
             }}
           >
@@ -80,35 +73,35 @@ const Home = () => {
             Objetivo con Nuestra <br />
             Tecnología de IA
           </Typography>
-          <Link href="./demoService" >
-          <Button
-            variant="contained"
-            sx={{
-              marginTop: theme.spacing(5),
-              backgroundColor: '#17153B',
-              borderRadius: '40px',
-              padding: theme.spacing(1, 6), 
-              fontSize: '1.25rem', 
-              color: '#EEDBF8',
-              '&:hover': {
-                backgroundColor: '#0f0e2a',
-              },
-              '& .MuiButton-endIcon': {
-                color: '#C8ACD6',
-              },
-              [theme.breakpoints.down('md')]: {
-                padding: theme.spacing(1.5, 5),
-                fontSize: '1rem',
-              },
-              [theme.breakpoints.down('sm')]: {
-                padding: theme.spacing(1, 4),
-                fontSize: '0.875rem',
-              },
-            }}
-            endIcon={<ArrowRightIcon />}
-          >
-            Iniciar Prueba Gratis
-          </Button>
+          <Link href="./demoService">
+            <Button
+              variant="contained"
+              sx={{
+                marginTop: theme.spacing(5),
+                backgroundColor: "#17153B",
+                borderRadius: "40px",
+                padding: theme.spacing(1, 6),
+                fontSize: "1.25rem",
+                color: "#EEDBF8",
+                "&:hover": {
+                  backgroundColor: "#0f0e2a",
+                },
+                "& .MuiButton-endIcon": {
+                  color: "#C8ACD6",
+                },
+                [theme.breakpoints.down("md")]: {
+                  padding: theme.spacing(1.5, 5),
+                  fontSize: "1rem",
+                },
+                [theme.breakpoints.down("sm")]: {
+                  padding: theme.spacing(1, 4),
+                  fontSize: "0.875rem",
+                },
+              }}
+              endIcon={<ArrowRightIcon />}
+            >
+              Iniciar Prueba Gratis
+            </Button>
           </Link>
         </Box>
       </Container>
