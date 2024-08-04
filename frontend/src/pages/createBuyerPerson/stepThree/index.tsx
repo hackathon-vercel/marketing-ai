@@ -197,7 +197,7 @@ const CreateBuyerPerson = () => {
               </Button>
             </Link>
 
-            <Link href="#" passHref>
+            <Link href="../../createBuyerPerson/stepFour" passHref>
               <Button
                 variant="contained"
                 sx={{
