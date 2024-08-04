@@ -1,7 +1,7 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Image from "next/image";
-import Logo from "../../public/logo.png";
+import Logo from "../../../public/logo.png";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ const Home = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
+        height: "100vh",
         backgroundImage: "url(/img/bgilaptopgirl.jpeg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -41,7 +41,14 @@ const Home = () => {
           color: "white",
         }}
       >
-        <Box sx={{ mx: "auto", width: "fit-content" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: theme.spacing(-8),
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
           <Image src={Logo} alt="Logo" width={100} height={100} />
         </Box>
         <Box
@@ -69,11 +76,29 @@ const Home = () => {
               },
             }}
           >
-            Conoce a tu Público <br />
-            Objetivo con Nuestra <br />
-            Tecnología de IA
+            ¿Listo para llevar tus <br />
+            campañas de marketing  <br />
+            al siguiente nivel?
           </Typography>
-          <Link href="./demoService">
+          <Typography
+            variant="h6"
+            component="h1"
+            gutterBottom
+            sx={{
+              [theme.breakpoints.down("md")]: {
+                fontSize: "2rem",
+              },
+              [theme.breakpoints.down("sm")]: {
+                fontSize: "1.5rem",
+              },
+            }}
+          >
+            Con nuestra innovadora herramienta de IA, puedes <br />
+            crear buyer personas detalladas y precisas en cuestión <br />
+            de segundos. Es hora de empezar a entender a tu <br />
+            público objetivo como nunca antes.
+          </Typography>
+          <Link href="../createBuyerPerson">
             <Button
               variant="contained"
               sx={{
@@ -100,7 +125,7 @@ const Home = () => {
               }}
               endIcon={<ArrowRightIcon />}
             >
-              Iniciar Prueba Gratis
+              Crear Buyer persona
             </Button>
           </Link>
         </Box>
