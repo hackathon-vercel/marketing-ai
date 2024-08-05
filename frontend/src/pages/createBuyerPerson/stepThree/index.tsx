@@ -163,28 +163,29 @@ const CreateBuyerPerson = () => {
             </Button>
           </Link>
 
-          <Link href="#" passHref>
-            <Button
-              variant="contained"
-              sx={{
-                backgroundColor: "#17153B",
-                borderRadius: "40px",
-                padding: theme.spacing(1.5, 4),
-                fontSize: "1rem",
-                color: "#EEDBF8",
-                "&:hover": {
-                  backgroundColor: "#0f0e2a",
-                },
-                "& .MuiButton-endIcon": {
-                  color: "#C8ACD6",
-                  fontSize: "1.5rem",
-                },
-              }}
-              endIcon={<ArrowRightIcon />}
-            >
-              Continuar
-            </Button>
-          </Link>
+            <Link href="../../createBuyerPerson/stepFour" passHref>
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: "#17153B",
+                  borderRadius: "40px",
+                  padding: theme.spacing(1.5, 4),
+                  fontSize: "1rem",
+                  color: "#EEDBF8",
+                  "&:hover": {
+                    backgroundColor: "#0f0e2a",
+                  },
+                  "& .MuiButton-endIcon": {
+                    color: "#C8ACD6",
+                    fontSize: "1.5rem",
+                  },
+                }}
+                endIcon={<ArrowRightIcon />}
+              >
+                Continuar
+              </Button>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </>
