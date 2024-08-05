@@ -1,207 +1,182 @@
-import { Box, Button, Container, Typography, List, ListItem, ListItemText, Checkbox, ListItemIcon } from "@mui/material";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/router";
+import { Box, Button, Typography, RadioGroup, FormControlLabel, Radio, FormControl } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import Image from "next/image";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
-import Logo from "../../../../public/logo.png";
-import Link from "next/link";
-import { useState } from "react";
+
+import { ROUTES } from "@/constants";
+import { HackathonApi } from "@/lib/hackathonAPI";
 
 const CreateBuyerPerson = () => {
   const theme = useTheme();
-  const [checked, setChecked] = useState([0]);
+  const [checked, setChecked] = useState(0);
+  const [keywords, setKeywords] = useState<string[]>([]);
+  const [term, setTerms] = useState("");
+  const router = useRouter();
 
-  const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+  useEffect(() => {
+    let data = localStorage.getItem("keywords");
+    if (data) {
+      Object.entries(JSON.parse(data)).find((item) => {
+        if (Array.isArray(item[1]) && item[1].length > 0) {
+          setKeywords(item[1]);
+        }
+        return Array.isArray(item[1]) && item[1].length > 0;
+      });
     } else {
-      newChecked.splice(currentIndex, 1);
+      toast.error("Primero agrega la descripción y nombre de la empresa");
+      router.push(ROUTES.createBuyer.first);
     }
+  }, []);
 
-    setChecked(newChecked);
+  const handleSubmit = async () => {
+    try {
+      console.log(term);
+      let res = await HackathonApi.keywords(term);
+      if (res.status) {
+        localStorage.setItem("terms", JSON.stringify(res.data));
+        router.push(ROUTES.createBuyer.third);
+      } else {
+        toast.error(res.message || "Ocurrió un error, vuelva a intentarlo");
+      }
+    } catch (err) {
+      const error = err as any;
+      console.error("> ocurrió un error", error);
+      const msg = error?.response?.data?.message;
+      const defaultMsg = "Ocurrio un error inesperado. Intente nuevamente más tarde!";
+
+      toast.error(msg || defaultMsg);
+    }
   };
 
-  const items = [
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-    "Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.",
-  ];
-
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        backgroundImage: "url(/img/radier.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: theme.spacing(2),
-      }}
-    >
-      <Container
+    <>
+      <Box
         sx={{
-          position: "relative",
-          textAlign: "center",
-          color: "white",
-          maxWidth: { xs: "100%", sm: "90%", md: "80%", lg: "70%" },
-          padding: theme.spacing(2),
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          mt: {
+            xs: 3,
+            sm: 5,
+            md: 7,
+          },
         }}
       >
-        <Box
+        <Typography
+          variant="h2"
+          component="h1"
           sx={{
-            position: "absolute",
-            top: theme.spacing(0),
-            left: "50%",
-            transform: "translateX(-50%)",
-            [theme.breakpoints.down("sm")]: {
-              top: theme.spacing(-2),
+            fontWeight: 800,
+            fontSize: "2rem",
+            [theme.breakpoints.up("md")]: {
+              fontSize: "3rem",
+            },
+            [theme.breakpoints.up("lg")]: {
+              fontSize: "4rem",
             },
           }}
         >
-          <Image src={Logo} alt="Logo" width={80} height={80} />
-        </Box>
-
-        <Box
+          Segundo Paso
+        </Typography>
+        <Typography
+          variant="h5"
+          component="h1"
+          gutterBottom
           sx={{
-            marginTop: theme.spacing(12),
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            [theme.breakpoints.down("sm")]: {
-              marginTop: theme.spacing(6),
+            mt: theme.spacing(1),
+            [theme.breakpoints.down("md")]: {
+              fontSize: "1.5rem",
             },
-          }}
-        >
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{
-              fontWeight: 800,
+            [theme.breakpoints.up("lg")]: {
               fontSize: "2rem",
-              [theme.breakpoints.up("md")]: {
-                fontSize: "3rem",
-              },
-              [theme.breakpoints.up("lg")]: {
-                fontSize: "4rem",
-              },
-            }}
-          >
-            Segundo Paso
-          </Typography>
-          <Typography
-            variant="h5"
-            component="h1"
-            gutterBottom
+            },
+          }}
+        >
+          Selecciona el título que más se adapte a lo que buscas
+        </Typography>
+
+        <FormControl sx={{ width: "100%", maxWidth: "800px", margin: "0 auto" }}>
+          <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue="female" name="radio-buttons-group">
+            {keywords.length > 0 &&
+              keywords.map((item, index) => (
+                <FormControlLabel
+                  onClick={(e: any) => {
+                    setChecked(index);
+                    const { value } = e.target;
+                    setTerms(value);
+                  }}
+                  checked={checked == index}
+                  onChange={(e: any) => {}}
+                  sx={{
+                    backgroundColor: "white",
+                    borderRadius: "10px",
+                    margin: theme.spacing(1, 0),
+                    textDecoration: checked == index ? "line-through" : "none",
+                    gap: "20px",
+                    color: "black",
+                    p: 0.5,
+                    textTransform: "capitalize",
+                  }}
+                  value={item}
+                  control={<Radio />}
+                  label={item}
+                />
+              ))}
+          </RadioGroup>
+        </FormControl>
+
+        <Box sx={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "800px", mt: 4 }}>
+          <Button
+            variant="contained"
+            onClick={() => router.back()}
             sx={{
-              mt: theme.spacing(1),  
-              [theme.breakpoints.down("md")]: {
+              marginRight: theme.spacing(2),
+              backgroundColor: "#17153B",
+              borderRadius: "40px",
+              padding: theme.spacing(1.5, 4),
+              fontSize: "1rem",
+              color: "#EEDBF8",
+              "&:hover": {
+                backgroundColor: "#0f0e2a",
+              },
+              "& .MuiButton-startIcon": {
+                color: "#C8ACD6",
                 fontSize: "1.5rem",
               },
-              [theme.breakpoints.up("lg")]: {
-                fontSize: "2rem",
+            }}
+            startIcon={<ArrowLeftIcon />}
+          >
+            Volver
+          </Button>
+
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              backgroundColor: "#17153B",
+              borderRadius: "40px",
+              padding: theme.spacing(1.5, 4),
+              fontSize: "1rem",
+              color: "#EEDBF8",
+              "&:hover": {
+                backgroundColor: "#0f0e2a",
+              },
+              "& .MuiButton-endIcon": {
+                color: "#C8ACD6",
+                fontSize: "1.5rem",
               },
             }}
+            endIcon={<ArrowRightIcon />}
           >
-            Selecciona el título que más se adapte a lo que buscas
-          </Typography>
-
-          <List sx={{ width: "100%", maxWidth: "800px", margin: '0 auto' }}>
-            {items.map((item, index) => (
-              <ListItem
-                key={index}
-                onClick={handleToggle(index)}
-                sx={{
-                  backgroundColor: "white",
-                  borderRadius: "10px",
-                  margin: theme.spacing(2, 0),
-                }}
-              >
-                <ListItemIcon>
-                  <Checkbox
-                    edge="start"
-                    checked={checked.indexOf(index) !== -1}
-                    tabIndex={-1}
-                    disableRipple
-                    sx={{
-                      color: "#6A1B9A",
-                      "&.Mui-checked": {
-                        color: "#6A1B9A",
-                      },
-                    }}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  primary={item}
-                  sx={{
-                    textDecoration: checked.indexOf(index) !== -1 ? "line-through" : "none",
-                    color: "black",
-                  }}
-                />
-              </ListItem>
-            ))}
-          </List>
-
-          <Box sx={{ display: "flex", justifyContent: "center", width: "100%", maxWidth: "800px", mt: 4 }}>
-            <Link href="../../createBuyerPerson" passHref>
-              <Button
-                variant="contained"
-                sx={{
-                  marginRight: theme.spacing(2),
-                  backgroundColor: "#17153B",
-                  borderRadius: "40px",
-                  padding: theme.spacing(1.5, 4),
-                  fontSize: "1rem",
-                  color: "#EEDBF8",
-                  "&:hover": {
-                    backgroundColor: "#0f0e2a",
-                  },
-                  "& .MuiButton-startIcon": {
-                    color: "#C8ACD6",
-                    fontSize: "1.5rem",
-                  },
-                }}
-                startIcon={<ArrowLeftIcon />}
-              >
-                Volver
-              </Button>
-            </Link>
-
-            <Link href="../../createBuyerPerson/stepThree" passHref>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "#17153B",
-                  borderRadius: "40px",
-                  padding: theme.spacing(1.5, 4),
-                  fontSize: "1rem",
-                  color: "#EEDBF8",
-                  "&:hover": {
-                    backgroundColor: "#0f0e2a",
-                  },
-                  "& .MuiButton-endIcon": {
-                    color: "#C8ACD6",
-                    fontSize: "1.5rem",
-                  },
-                }}
-                endIcon={<ArrowRightIcon />}
-              >
-                Continuar
-              </Button>
-            </Link>
-          </Box>
+            Continuar
+          </Button>
         </Box>
-      </Container>
-    </Box>
+      </Box>
+    </>
   );
 };
 
