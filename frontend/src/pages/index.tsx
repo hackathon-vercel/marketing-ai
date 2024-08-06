@@ -9,103 +9,66 @@ const Home = () => {
   const theme = useTheme();
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "100vh",
-        backgroundImage: "url(/img/bgilaptopgirl.jpeg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <>
       <Box
         sx={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: "url(/img/radier.png)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.9,
-        }}
-      />
-      <Container
-        sx={{
-          position: "relative",
-          textAlign: "center",
-          color: "white",
+          mt: {
+            xs: 3,
+            sm: 5,
+            md: 7,
+          },
         }}
       >
-        <Box sx={{ mx: "auto", width: "fit-content" }}>
-          <Image src={Logo} alt="Logo" width={100} height={100} />
-        </Box>
-        <Box
+        <Typography
+          variant="h2"
+          component="h1"
+          gutterBottom
           sx={{
-            marginTop: theme.spacing(15),
+            fontWeight: 800,
             [theme.breakpoints.down("md")]: {
-              marginTop: theme.spacing(10),
+              fontSize: "2rem",
             },
             [theme.breakpoints.down("sm")]: {
-              marginTop: theme.spacing(8),
+              fontSize: "1.5rem",
             },
           }}
         >
-          <Typography
-            variant="h2"
-            component="h1"
-            gutterBottom
+          Conoce a tu Público <br />
+          Objetivo con Nuestra <br />
+          Tecnología de IA
+        </Typography>
+        <Link href="./demoService">
+          <Button
+            variant="contained"
             sx={{
-              fontWeight: 800,
+              marginTop: theme.spacing(5),
+              backgroundColor: "#17153B",
+              borderRadius: "40px",
+              padding: theme.spacing(1, 6),
+              fontSize: "1.25rem",
+              color: "#EEDBF8",
+              "&:hover": {
+                backgroundColor: "#0f0e2a",
+              },
+              "& .MuiButton-endIcon": {
+                color: "#C8ACD6",
+              },
               [theme.breakpoints.down("md")]: {
-                fontSize: "2rem",
+                padding: theme.spacing(1.5, 5),
+                fontSize: "1rem",
               },
               [theme.breakpoints.down("sm")]: {
-                fontSize: "1.5rem",
+                padding: theme.spacing(1, 4),
+                fontSize: "0.875rem",
               },
             }}
+            endIcon={<ArrowRightIcon />}
           >
-            Conoce a tu Público <br />
-            Objetivo con Nuestra <br />
-            Tecnología de IA
-          </Typography>
-          <Link href="./demoService">
-            <Button
-              variant="contained"
-              sx={{
-                marginTop: theme.spacing(5),
-                backgroundColor: "#17153B",
-                borderRadius: "40px",
-                padding: theme.spacing(1, 6),
-                fontSize: "1.25rem",
-                color: "#EEDBF8",
-                "&:hover": {
-                  backgroundColor: "#0f0e2a",
-                },
-                "& .MuiButton-endIcon": {
-                  color: "#C8ACD6",
-                },
-                [theme.breakpoints.down("md")]: {
-                  padding: theme.spacing(1.5, 5),
-                  fontSize: "1rem",
-                },
-                [theme.breakpoints.down("sm")]: {
-                  padding: theme.spacing(1, 4),
-                  fontSize: "0.875rem",
-                },
-              }}
-              endIcon={<ArrowRightIcon />}
-            >
-              Iniciar Prueba Gratis
-            </Button>
-          </Link>
-        </Box>
-      </Container>
-    </Box>
+            Iniciar Prueba Gratis
+          </Button>
+        </Link>
+      </Box>
+    </>
   );
 };
 

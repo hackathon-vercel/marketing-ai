@@ -4,152 +4,145 @@ import Image from "next/image";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Logo from "../../../public/logo.png";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import toast from "react-hot-toast";
+
+import { ROUTES } from "@/constants";
+import { isMyDocument } from "@/utils/missingProperties";
+
+//types
+import type { ResultContent } from "@/types/formBuyer";
 
 const CreateBuyerPerson = () => {
+  const router = useRouter();
   const theme = useTheme();
+  const [content, setContent] = useState<ResultContent>({
+    headline: "",
+    description: "",
+  });
+
+  useEffect(() => {
+    const data = localStorage.getItem("result");
+    if (data) {
+      const parsed = JSON.parse(data);
+      if (isMyDocument<ResultContent>(parsed, { description: "", headline: "" })) {
+        setContent(parsed);
+      }
+    } else {
+      toast.error("Crea el contenido primero");
+      router.push(ROUTES.createBuyer.third);
+    }
+  }, []);
+
 
   return (
     <Box
       sx={{
-        position: "relative",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        minHeight: "100vh",
-        backgroundImage: "url(/img/radier.png)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: theme.spacing(2),
+        mt: {
+          xs: 3,
+          sm: 5,
+          md: 6,
+        },
       }}
     >
-      <Container
+      <Typography
+        variant="h2"
+        component="h1"
         sx={{
-          position: "relative",
-          textAlign: "center",
-          color: "white",
-          maxWidth: { xs: "100%", sm: "90%", md: "80%", lg: "70%" },
-          padding: theme.spacing(2),
+          fontWeight: 800,
+          fontSize: "2rem",
+          [theme.breakpoints.up("md")]: {
+            fontSize: "3rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "4rem",
+          },
         }}
       >
-        <Box
+        Resultados
+      </Typography>
+
+      <Box
+        sx={{
+          mt: theme.spacing(4),
+          width: "100%",
+          maxWidth: "800px",
+          backgroundColor: "#433D8B",
+          borderRadius: "15px",
+          textAlign: "left",
+        }}
+      >
+        <Typography variant="h6" sx={{ color: "white", mt: 1, mb: 1 }} align="center">
+          Título
+        </Typography>
+        <Typography
+          variant="body1"
           sx={{
-            position: "absolute",
-            top: theme.spacing(0),
-            left: "50%",
-            transform: "translateX(-50%)",
-            [theme.breakpoints.down("sm")]: {
-              top: theme.spacing(-2),
-            },
+            backgroundColor: "#D9D9D9",
+            color: "black",
+            p: 2.5,
           }}
         >
-          <Image src={Logo} alt="Logo" width={80} height={80} />
-        </Box>
+          {content.headline}
+        </Typography>
 
-        <Box
+        <Typography variant="h6" sx={{ color: "white", mt: 1, mb: 1 }} align="center">
+          Descripción
+        </Typography>
+        <Typography
+          variant="body1"
           sx={{
-            marginTop: theme.spacing(12),
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            [theme.breakpoints.down("sm")]: {
-              marginTop: theme.spacing(6),
-            },
+            backgroundColor: "#D9D9D9",
+            color: "black",
+            borderBottomLeftRadius: "15px",
+            borderBottomRightRadius: "15px",
+            p: 2.5,
           }}
         >
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{
-              fontWeight: 800,
-              fontSize: "2rem",
-              [theme.breakpoints.up("md")]: {
-                fontSize: "3rem",
-              },
-              [theme.breakpoints.up("lg")]: {
-                fontSize: "4rem",
-              },
-            }}
-          >
-            Resultados
-          </Typography>
+          {content.description}
+        </Typography>
+      </Box>
 
-          <Box
-            sx={{
-              mt: theme.spacing(4),
-              width: "100%",
-              maxWidth: "800px",
-              backgroundColor: "#433D8B",
-              borderRadius: "15px",
-              textAlign: "left",
-            }}
-          >
-            <Typography variant="h6" sx={{ color: "white", mt: 1, mb: 1 }} align="center">
-              Título
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                backgroundColor: "#D9D9D9",
-                color: "black",
-                padding: theme.spacing(1),
-              }}
-            >
-              Aquí va el texto del título
-            </Typography>
-
-            <Typography variant="h6" sx={{ color: "white", mt: 1, mb: 1 }}  align="center">
-              Descripción
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                backgroundColor: "#D9D9D9",
-                color: "black",
-                borderBottomLeftRadius: "15px",
-                borderBottomRightRadius: "15px",
-                padding: theme.spacing(1),
-              }}
-            >
-              Aquí va el texto de la descripción. 
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-              maxWidth: "800px",
-              mt: 4,
-            }}
-          >
-            <Link href="../createBuyerPerson/stepFour" passHref>
-              <Button
-                variant="contained"
-                sx={{
-                  marginRight: theme.spacing(2),
-                  backgroundColor: "#17153B",
-                  borderRadius: "40px",
-                  padding: theme.spacing(1.5, 4),
-                  fontSize: "1rem",
-                  color: "#EEDBF8",
-                  "&:hover": {
-                    backgroundColor: "#0f0e2a",
-                  },
-                  "& .MuiButton-startIcon": {
-                    color: "#C8ACD6",
-                    fontSize: "1.5rem",
-                  },
-                }}
-                startIcon={<ArrowLeftIcon />}
-              >
-                Volver
-              </Button>
-            </Link>
-          </Box>
-        </Box>
-      </Container>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          width: "100%",
+          maxWidth: "800px",
+          mt: 4,
+        }}
+      >
+        <Button
+          variant="contained"
+          type="button"
+          onClick={() => {
+            router.push(ROUTES.index);
+          }}
+          sx={{
+            marginRight: theme.spacing(2),
+            backgroundColor: "#17153B",
+            borderRadius: "40px",
+            padding: theme.spacing(1.5, 4),
+            fontSize: "1rem",
+            color: "#EEDBF8",
+            "&:hover": {
+              backgroundColor: "#0f0e2a",
+            },
+            "& .MuiButton-startIcon": {
+              color: "#C8ACD6",
+              fontSize: "1.5rem",
+            },
+          }}
+          startIcon={<ArrowLeftIcon />}
+        >
+          Volver
+        </Button>
+      </Box>
     </Box>
   );
 };
