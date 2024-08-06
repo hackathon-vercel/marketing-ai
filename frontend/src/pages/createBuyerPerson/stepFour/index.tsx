@@ -31,14 +31,12 @@ type Repo = {
   data: string[];
 };
 
-export const getStaticProps = (async (context) => {
+export const getStaticProps: GetStaticProps<{ data: Repo }> = async (context) => {
   const {
     data: { data },
   } = await httpClient.get({ url: "/contents/list-ad-tone" });
   return { props: { data } };
-}) satisfies GetStaticProps<{
-  data: Repo;
-}>;
+};
 
 const CreateBuyerPerson = ({ data }: Repo) => {
   const router = useRouter();
