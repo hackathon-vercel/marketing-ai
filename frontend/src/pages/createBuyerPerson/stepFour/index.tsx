@@ -32,7 +32,6 @@ type Repo = {
 };
 
 export const getStaticProps: GetStaticProps<{ data: Repo }> = async (context) => {
-  await new Promise((resolve) => setTimeout(resolve, 120000));
   const {
     data: { data },
   } = await httpClient.get({ url: "/contents/list-ad-tone" });
