@@ -10,12 +10,14 @@ import toast from "react-hot-toast";
 
 import { ROUTES } from "@/constants";
 import { isMyDocument } from "@/utils/missingProperties";
+import { useBuyerContext } from "@/context/BuyerContext";
 
 //types
 import type { ResultContent } from "@/types/formBuyer";
 
 const CreateBuyerPerson = () => {
   const router = useRouter();
+  const { setKeywords } = useBuyerContext();
   const theme = useTheme();
   const [content, setContent] = useState<ResultContent>({
     headline: "",
@@ -28,12 +30,13 @@ const CreateBuyerPerson = () => {
       const parsed = JSON.parse(data);
       if (isMyDocument<ResultContent>(parsed, { description: "", headline: "" })) {
         setContent(parsed);
+        setKeywords([]);
       }
     } else {
       toast.error("Crea el contenido primero");
       router.push(ROUTES.createBuyer.third);
     }
-  }, [setContent, router]);
+  }, [setContent, router, setKeywords]);
 
   return (
     <Box

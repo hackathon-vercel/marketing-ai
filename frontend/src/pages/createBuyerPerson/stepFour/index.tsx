@@ -118,7 +118,6 @@ const CreateBuyerPerson = ({ data }: Repo) => {
               let res = await HackathonApi.createContent(form);
               if (res.status) {
                 localStorage.setItem("result", JSON.stringify(res.data));
-                setKeywords([]);
                 toast.success("Se creó su contenido exitosamente");
                 router.push(ROUTES.result);
               } else {
