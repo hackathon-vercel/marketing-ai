@@ -50,7 +50,7 @@ const CreateBuyerPerson = ({ data }: Repo) => {
       toast("Vuelve a seleccionar las palabras claves");
       router.push(ROUTES.createBuyer.third);
     }
-  }, []);
+  }, [router]);
 
   return (
     <Box
@@ -200,7 +200,6 @@ const CreateBuyerPerson = ({ data }: Repo) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     input={
-
                       <OutlinedInput
                         startAdornment={
                           <InputAdornment position="start">
