@@ -50,7 +50,7 @@ const CreateBuyerPerson = ({ data }: Repo) => {
       toast("Vuelve a seleccionar las palabras claves");
       router.push(ROUTES.createBuyer.third);
     }
-  }, [router]);
+  }, [router, keywords.length]);
 
   return (
     <Box

@@ -88,9 +88,11 @@ const _delete = ({ url = "", body = {}, headers = {}, options = {} }: AxiosParam
   });
 };
 
-export default {
+const httpClient = {
   get,
   post,
   put,
   delete: _delete,
 };
+
+export default httpClient;
