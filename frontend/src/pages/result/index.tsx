@@ -33,8 +33,7 @@ const CreateBuyerPerson = () => {
       toast.error("Crea el contenido primero");
       router.push(ROUTES.createBuyer.third);
     }
-  }, []);
-
+  }, [setContent]);
 
   return (
     <Box

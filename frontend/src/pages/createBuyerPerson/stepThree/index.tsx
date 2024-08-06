@@ -62,7 +62,7 @@ const CreateBuyerPerson = () => {
       toast.error("Primero selecciona una frase");
       router.push(ROUTES.createBuyer.second);
     }
-  }, []);
+  }, [router, setKeywords, setTerms]);
 
   return (
     <>
@@ -133,7 +133,7 @@ const CreateBuyerPerson = () => {
             <TableBody>
               {terms.length > 0 &&
                 terms.map((row, index) => (
-                  <TableRow key={index}>
+                  <TableRow key={`${row}-${index}`}>
                     <TableCell
                       align="left"
                       sx={{
@@ -232,7 +232,6 @@ const CreateBuyerPerson = () => {
           >
             Continuar
           </Button>
-
         </Box>
       </Box>
     </>

@@ -29,7 +29,7 @@ const CreateBuyerPerson = () => {
       toast.error("Primero agrega la descripción y nombre de la empresa");
       router.push(ROUTES.createBuyer.first);
     }
-  }, []);
+  }, [setKeywords, router]);
 
   const handleSubmit = async () => {
     try {
@@ -104,6 +104,7 @@ const CreateBuyerPerson = () => {
             {keywords.length > 0 &&
               keywords.map((item, index) => (
                 <FormControlLabel
+                  key={`${item}-${index}`}
                   onClick={(e: any) => {
                     setChecked(index);
                     const { value } = e.target;
