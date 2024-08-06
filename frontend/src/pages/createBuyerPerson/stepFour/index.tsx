@@ -200,6 +200,7 @@ const CreateBuyerPerson = ({ data }: Repo) => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     input={
+
                       <OutlinedInput
                         startAdornment={
                           <InputAdornment position="start">

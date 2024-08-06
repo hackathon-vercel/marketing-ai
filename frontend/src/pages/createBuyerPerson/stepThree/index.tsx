@@ -232,6 +232,7 @@ const CreateBuyerPerson = () => {
           >
             Continuar
           </Button>
+
         </Box>
       </Box>
     </>
